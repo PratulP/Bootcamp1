@@ -34,7 +34,7 @@ var requestHandler = function(request, response) {
         response.end(JSON.stringify(listingData));
     } else {
         response.writeHead(404, { 'Content-Type' : 'text/plain' });
-        response.end('Bad gateway error' + request.url);
+        response.end('Bad gateway error');
     }
 };
 
@@ -68,6 +68,6 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
   
   //Start the server
     server.listen(port, function() {
-        console.log('Server is running on http://localhost:' + port);
+        console.log('Server is running on 127.0.0.1:' + port);
     });
 });
