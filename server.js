@@ -6,7 +6,7 @@ var http = require('http'),
 var listingData, server;
 
 var requestHandler = function(request, response) {
-  /*Investigate the request  
+  /*Investigate the request object.
     You will need to use several of its properties: url and method
   */
   //console.log(request);
@@ -29,6 +29,13 @@ var requestHandler = function(request, response) {
     Helpful example: if-else structure- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
 
     */
+    if (request.method === 'GET' && request.url === '/listings') {
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify(listingData));
+    } else {
+        response.writeHead(404, { 'Content-Type' : 'text/plain' });
+        response.end('Bad gateway error - ' + request.url);
+    }
 };
 
 fs.readFile('listings.json', 'utf8', function(err, data) {
@@ -47,14 +54,20 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
     /*this resource gives you an idea of the general format err objects and Throwing an existing object.
     https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw#throwing_an_existing_object
    */
+    if (err) {
+        throw err;
+    }
   
 
    //Save the data in the listingData variable already defined
+    listingData = JSON.parse(data);
   
 
   //Creates the server
+    server = http.createServer(requestHandler);
   
   //Start the server
-
-
+    server.listen(port, function() {
+        console.log('Server is running on http://localhost: ' + port);
+    });
 });
