@@ -6,7 +6,7 @@ var http = require('http'),
 var listingData, server;
 
 var requestHandler = function(request, response) {
-  /*Investigate the request object 
+  /*Investigate the request  
     You will need to use several of its properties: url and method
   */
   //console.log(request);
