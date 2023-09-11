@@ -68,6 +68,6 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
   
   //Start the server
     server.listen(port, function() {
-        console.log('Server is running on 127.0.0.1:' + port);
+        console.log('server listening on: http://localhost:' + port);
     });
 });
